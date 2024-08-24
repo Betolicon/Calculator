@@ -3,3 +3,21 @@
     padding: 0;
     font-family: 'Courier New', Courier, monospace;
 }
+
+body{
+    background-image: linear-gradient(150deg, #3afeb6,#63ff63, #63d7ff, #63ff63, #3afeb6);
+    background-size: 500%;
+    animation: fondo 10s infinite;
+}
+
+@keyframes fondo{
+    0%{
+        background-position: 0% 50%;
+    }
+    50%{
+        background-position: 50% 100%;
+    }
+    100%{
+        background-position: 100% 50%;
+    }
+}
