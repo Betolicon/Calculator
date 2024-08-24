@@ -5,9 +5,14 @@
 }
 
 body{
-    background-image: linear-gradient(150deg, #3afeb6,#63ff63, #63d7ff, #63ff63, #3afeb6);
+    background-image: linear-gradient(150deg, #000c74,#300784, #19a4d3, #300784, #000c74);
     background-size: 500%;
     animation: fondo 10s infinite;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @keyframes fondo{
@@ -20,4 +25,12 @@ body{
     100%{
         background-position: 100% 50%;
     }
+}
+
+#calculator{
+    margin: 0 auto;
+    background-color: white;
+    padding: 8px;
+    border-radius: 10px;    
+    box-shadow: 5px 5px 5px rgb(0, 0, 0);
 }
