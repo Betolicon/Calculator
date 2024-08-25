@@ -44,7 +44,9 @@ button:active{
     height: 100px;
     width: 100%;
     border-radius: 10px;
-
+    display: flex;
+    justify-content: flex-end;
+    overflow: auto;
 }
 
 body{
