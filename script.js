@@ -11,6 +11,7 @@ const numbers = document.querySelectorAll("#number")
 const del = document.querySelector("#delete")
 const Symbols = document.querySelectorAll("#symbol")
 const equal = document.querySelector("#equal")
+const percent = document.querySelector("#percent")
 
 const clearDisplay = () =>{
     display.innerHTML = ''
@@ -61,11 +62,28 @@ const saveOperation = (e) =>{
 
 const showResult = () =>{
     if (number1 == '' || number2 == '' || sym == '')
-        display.innerHTML = ''
+        clearDisplay()
     else {
         result = true
-        finalResult = display.innerHTML = solveOperation(number1, sym, number2)
-        console.log(finalResult)
+        finalResult = display.innerHTML = solveOperation(number1, sym, number2).toFixed(2)
+    }
+}
+
+const convert = () =>{
+    let numAux = 0
+    if(number1 != "" && sym == ""){
+        numAux = parseFloat(number1)
+        number1 = ''
+        number1 += numAux/ 100;
+        display.innerHTML = ''
+        display.innerHTML += number1;
+    }
+    else if(number2 != '' && sym != ''){
+        numAux = parseFloat(number2)
+        number2 = ''
+        number2+= numAux/ 100;
+        display.innerHTML = ''
+        display.innerHTML += number2;
     }
 }
 
@@ -89,13 +107,13 @@ const multiplication = (number1, number2) =>{
 
 const solveOperation = (num1, sym, num2) =>{
     if(sym === '+')
-        return add(parseInt(num1), parseInt(num2))
+        return add(parseFloat(num1), parseFloat(num2))
     else if(sym === '-')
-        return substract(parseInt(num1), parseInt(num2))
+        return substract(parseFloat(num1), parseFloat(num2))
     else if (sym === '/')
-        return division(parseInt(num1), parseInt(num2))
+        return division(parseFloat(num1), parseFloat(num2))
     else if (sym === '*')
-        return multiplication(parseInt(num1), parseInt(num2))
+        return multiplication(parseFloat(num1), parseFloat(num2))
 }
 
 clear.addEventListener("click", clearDisplay);
@@ -111,3 +129,5 @@ Symbols.forEach(symbol => {
 })
 
 equal.addEventListener("click", showResult)
+
+percent.addEventListener("click", convert)
