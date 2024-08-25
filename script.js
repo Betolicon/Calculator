@@ -2,9 +2,11 @@ let number1 = ""
 let number2 = ''
 let sym = ''
 let operation = ''
+let result = false
+let finalResult = ''
 
 const clear = document.querySelector("#clear")
-const display = document.querySelector(".display")
+const display = document.querySelector("#display")
 const numbers = document.querySelectorAll("#number")
 const del = document.querySelector("#delete")
 const Symbols = document.querySelectorAll("#symbol")
@@ -15,14 +17,22 @@ const clearDisplay = () =>{
     number1 = ""
     number2 = ""
     sym = ""
+    operation = ""
+    result = false
+    finalResult = ""
 }
 
 const showOperation = (e) =>{
     display.innerHTML += e.target.value;
-    if (sym === '')
+
+    if (sym === '' && result == false)
         number1 += e.target.value
-    else 
+    else if(result == false)
         number2 += e.target.value
+    else if(result == true){ 
+        number2 += e.target.value
+    }
+
     operation += e.target.value
 }
 
@@ -32,7 +42,19 @@ const deleteNumber = () =>{
 }
 
 const saveOperation = (e) =>{
-    sym = e.target.value
+    if(result == false)
+        sym = e.target.value
+    else{
+        operation = ''
+        number1 = ''        
+        number2 = ''
+        sym = ''
+        number1 += finalResult
+        sym = e.target.value
+        operation += number1 
+        operation += sym
+    }
+
     display.innerHTML += e.target.value;
     operation += e.target.value
 }
@@ -40,19 +62,40 @@ const saveOperation = (e) =>{
 const showResult = () =>{
     if (number1 == '' || number2 == '' || sym == '')
         display.innerHTML = ''
-    else 
-        display.innerHTML = solveOperation(number1, sym, number2)
+    else {
+        result = true
+        finalResult = display.innerHTML = solveOperation(number1, sym, number2)
+        console.log(finalResult)
+    }
+}
+
+const add = (number1, number2) =>{
+    return number1 + number2
+}
+
+const substract = (number1, number2) =>{
+    return number1 - number2
+}
+
+const division = (number1, number2) =>{
+    if (number2 == 0)
+        return 'Dude, WTF???'
+    return number1 / number2
+}
+
+const multiplication = (number1, number2) =>{
+    return number1 * number2
 }
 
 const solveOperation = (num1, sym, num2) =>{
     if(sym === '+')
-        add(num1, num2)
+        return add(parseInt(num1), parseInt(num2))
     else if(sym === '-')
-        substract(num1, num2)
+        return substract(parseInt(num1), parseInt(num2))
     else if (sym === '/')
-        division(num1, num2)
+        return division(parseInt(num1), parseInt(num2))
     else if (sym === '*')
-        multiplication(num1, num2)
+        return multiplication(parseInt(num1), parseInt(num2))
 }
 
 clear.addEventListener("click", clearDisplay);
@@ -62,6 +105,7 @@ numbers.forEach(number => {
 });
 
 del.addEventListener("click", deleteNumber);
+
 Symbols.forEach(symbol => {
     symbol.addEventListener("click", saveOperation)
 })
