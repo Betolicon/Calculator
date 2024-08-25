@@ -39,6 +39,11 @@ button:active{
     background-color: #f4d669;
 }
 
+#equal{
+    width: 46%;
+    background-color: #ff0000a1;
+}
+
 .display{
     background-color: rgb(187, 255, 255);
     height: 100px;
@@ -46,7 +51,12 @@ button:active{
     border-radius: 10px;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     overflow: auto;
+}
+#display{
+    font-size: 30px;
+    padding: 12px;
 }
 
 body{
