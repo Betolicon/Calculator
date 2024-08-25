@@ -19,6 +19,20 @@ button{
     border: 0;
     border-radius: 10px;
     cursor: pointer;
+    box-shadow: 4px 4px 4px gainsboro;
+}
+
+button:active{
+    transform: scale(0.9);
+}
+
+@keyframes button {
+    0%{
+        transform: scale3d(1, 1, 1);
+    }
+    50%{
+        transform: scale3d(1.15, 0.85, 1);
+    }
 }
 
 #clear, #delete{
