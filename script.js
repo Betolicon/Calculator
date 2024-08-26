@@ -46,7 +46,11 @@ const deleteNumber = () =>{
     operation = operation.slice(0, -1)
     display.innerHTML = display.innerHTML.slice(0, -1)
     if(operation.length == 0)
-        clearDisplay()   
+        clearDisplay()
+    else if (operation.includes('+') || operation.includes('-') || operation.includes('/') || operation.includes('*'))
+        number2 = number2.slice(0, 1)
+    else
+        number1= number1.slice(0, -1)
 }
 
 const saveOperation = (e) =>{
