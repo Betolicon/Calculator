@@ -12,6 +12,7 @@ const del = document.querySelector("#delete")
 const Symbols = document.querySelectorAll("#symbol")
 const equal = document.querySelector("#equal")
 const percent = document.querySelector("#percent")
+const decimal = document.querySelector("#decimal")
 
 const clearDisplay = () =>{
     display.innerHTML = ''
@@ -39,52 +40,57 @@ const showOperation = (e) =>{
 
 const deleteNumber = () =>{
     operation = operation.slice(0, -1)
-    display.innerHTML = display.innerHTML.slice(0, -1)    
+    display.innerHTML = display.innerHTML.slice(0, -1)   
 }
 
 const saveOperation = (e) =>{
-    if(result == false)
+    if(operation.includes('+') || operation.includes('-') || operation.includes('/') || operation.includes('*')){
+      display.innerHTML = operation
+}
+    else{   
         sym = e.target.value
-    else{
-        operation = ''
-        number1 = ''        
-        number2 = ''
-        sym = ''
-        number1 += finalResult
-        sym = e.target.value
-        operation += number1 
-        operation += sym
+        display.innerHTML += e.target.value;
+        operation += e.target.value
     }
-
-    display.innerHTML += e.target.value;
-    operation += e.target.value
 }
 
 const showResult = () =>{
+    console.log(operation)
+    console.log(number1)
+    console.log(number2)
     if (number1 == '' || number2 == '' || sym == '')
         clearDisplay()
-    else {
+    else if (operation.includes(number1) && operation.includes(sym) && operation.includes(number2)) {
         result = true
-        finalResult = display.innerHTML = solveOperation(number1, sym, number2).toFixed(2)
+        finalResult = display.innerHTML = solveOperation(number1, operation, number2).toFixed(2)
+        operation = ''
+        number1 = ''   
+        number1 = finalResult 
+        operation = number1     
+        number2 = ''
+        sym = ''
     }
 }
 
-const convert = () =>{
+const changeNumber = (number) =>{
     let numAux = 0
+    numAux = parseFloat(number)
+    number = ''
+    number += numAux/ 100;
+    display.innerHTML = ''
+    display.innerHTML += number;
+    operation = operation.replace(numAux, number)
+    return number
+}
+
+const convert = () =>{
     if(number1 != "" && sym == ""){
-        numAux = parseFloat(number1)
-        number1 = ''
-        number1 += numAux/ 100;
-        display.innerHTML = ''
-        display.innerHTML += number1;
+        number1 = changeNumber(number1)
     }
     else if(number2 != '' && sym != ''){
-        numAux = parseFloat(number2)
-        number2 = ''
-        number2+= numAux/ 100;
-        display.innerHTML = ''
-        display.innerHTML += number2;
+        number2 = changeNumber(number2)
     }
+
 }
 
 const add = (number1, number2) =>{
@@ -97,7 +103,7 @@ const substract = (number1, number2) =>{
 
 const division = (number1, number2) =>{
     if (number2 == 0)
-        return 'Dude, WTF???'
+        display.innerHTML = 'Dude, WTF???'
     return number1 / number2
 }
 
@@ -106,13 +112,13 @@ const multiplication = (number1, number2) =>{
 }
 
 const solveOperation = (num1, sym, num2) =>{
-    if(sym === '+')
+    if(sym.includes('+'))
         return add(parseFloat(num1), parseFloat(num2))
-    else if(sym === '-')
+    else if(sym.includes('-'))
         return substract(parseFloat(num1), parseFloat(num2))
-    else if (sym === '/')
+    else if (sym.includes('/'))
         return division(parseFloat(num1), parseFloat(num2))
-    else if (sym === '*')
+    else if (sym.includes('*'))
         return multiplication(parseFloat(num1), parseFloat(num2))
 }
 
