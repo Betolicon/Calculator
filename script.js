@@ -4,6 +4,8 @@ let sym = ''
 let operation = ''
 let result = false
 let finalResult = ''
+let number1IsPercent = false
+let number2IsPercent = false
 
 const clear = document.querySelector("#clear")
 const display = document.querySelector("#display")
@@ -21,6 +23,8 @@ const clearDisplay = () =>{
     sym = ""
     operation = ""
     result = false
+    number1IsPercent = false
+    number2IsPercent = false
     finalResult = ""
 }
 
@@ -55,9 +59,6 @@ const saveOperation = (e) =>{
 }
 
 const showResult = () =>{
-    console.log(operation)
-    console.log(number1)
-    console.log(number2)
     if (number1 == '' || number2 == '' || sym == '')
         clearDisplay()
     else if (operation.includes(number1) && operation.includes(sym) && operation.includes(number2)) {
@@ -84,11 +85,13 @@ const changeNumber = (number) =>{
 }
 
 const convert = () =>{
-    if(number1 != "" && sym == ""){
+    if(number1 != "" && number1IsPercent == false){
         number1 = changeNumber(number1)
+        number1IsPercent = true
     }
-    else if(number2 != '' && sym != ''){
+    else if(number2 != '' && number2IsPercent == false){
         number2 = changeNumber(number2)
+        number2IsPercent = true
     }
 
 }
@@ -124,6 +127,19 @@ const solveOperation = (num1, sym, num2) =>{
         return multiplication(parseFloat(num1), parseFloat(num2))
 }
 
+const addDecimal = () =>{
+    if(number1 != '' && !number1.includes('.')){
+        number1 += '.'
+        operation += '.'
+        display.innerHTML += '.'
+    }
+    else if (number2 != '' && !number2.includes('.')){
+        number2 += '.'
+        operation += '.'
+        display.innerHTML += '.' 
+}
+}
+
 clear.addEventListener("click", clearDisplay);
 
 numbers.forEach(number => {
@@ -139,3 +155,5 @@ Symbols.forEach(symbol => {
 equal.addEventListener("click", showResult)
 
 percent.addEventListener("click", convert)
+
+decimal.addEventListener("click", addDecimal)
