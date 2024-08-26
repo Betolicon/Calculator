@@ -44,7 +44,9 @@ const showOperation = (e) =>{
 
 const deleteNumber = () =>{
     operation = operation.slice(0, -1)
-    display.innerHTML = display.innerHTML.slice(0, -1)   
+    display.innerHTML = display.innerHTML.slice(0, -1)
+    if(operation.length == 0)
+        clearDisplay()   
 }
 
 const saveOperation = (e) =>{
