@@ -102,9 +102,11 @@ const substract = (number1, number2) =>{
 }
 
 const division = (number1, number2) =>{
-    if (number2 == 0)
-        display.innerHTML = 'Dude, WTF???'
-    return number1 / number2
+    if (number2 == 0){
+        clearDisplay()
+    display.innerHTML = 'Dude, WTF???' }
+    else
+        return number1 / number2
 }
 
 const multiplication = (number1, number2) =>{
